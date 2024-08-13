@@ -1,0 +1,427 @@
+
+                 Data science best ever demand now in job market 
+
+pyhon --version
+pip install jupyter
+jupyter notebook
+jupyter --version
+python.exe -m pip install --upgrade pip
+
+
+!pip install numpy
+!pip install pandas
+!pip install matplotlib
+!pip install seaborn
+
+pip uninstall -y numpy pandas matplotlib seaborn
+
+
+
+
+# import python libraries
+
+import numpy as np # Numpy array , mathematical use
+import pandas as pd #Pandas work on Dataframes tables
+import matplotlib.pyplot as plt # visualizing data, Charts and Graph
+%matplotlib inline #Inline Display
+import seaborn as sns # visualizing data, Charts and Graph
+
+
+import os                                           #find files in this directory 
+files = os.listdir(r'C:\Users\imran\Downloads')     #find files in this directory 
+print(files)                                        #find files in this directory 
+                           
+df = pd.read_csv(r'C:\Users\imran\Downloads\Business Data Analysis\Business Data Analysis.csv', encoding='unicode_escape') #load file into jupyter
+
+df = pd.read_csv(r'C:\Users\imran\Downloads\Police Data Analysis\Police Data.csv', encoding='unicode_escape')
+
+#Data Exploratory
+
+
+
+df.shape  #Data row column size 
+df.head() #show the first 5 row , 4 row data
+df.tail() #show the last 5 row , 4 row data 
+df.tail(10) #show the last 10 row , 4 row data
+df.head(10) #show the first 10 data
+df.info()  #Show the all Column Heading of table Data columns (total 15 columns): 
+df.drop(['Status', 'unnamed1'], axis=1, inplace=True)  # Drop the 'Status' and 'unnamed1' columns inplace true mean again data save in df after delete
+df.info()  #Show the all Column Heading of table Data columns (total 13 columns)  
+df.nunique()    #show the unique values in each column
+df['Amount'].unique()  #show the unique values in Amount column
+df.nunique()    #show the unique values in each column
+df.query('column_name > 10')  #show the data where column_name > 10     
+df.loc[0] #show the first row   
+df.loc[0:5] #show the first 5 row
+df.loc[0:5, 'column_name'] #show the first 5 row of column_name  
+loc[0:5, 'Day'] #show the first 5 rows of the column 'Day'
+df.loc[0:5, ['Day', 'Amount']] #show the first 5 rows of the columns 'Day' and 'Amount'
+df.loc[5:9, ['Day', 'Units Sold']] #show the 5th to 9th rows of the columns 'Day' and 'Units Sold'
+df.sort_index(axis=0, ascending=False)  #sort the data in descending order      
+df.sort_values(by='Amount', ascending=False)  #sort the data by 'Amount' in descending order    
+df.sort_values(by='Units Sold', ascending=False)  #sort the data by 'Units Sold' in descending order   
+df['Units Sold'].sum() #Sum of the 'Units Sold' column values
+df['Day'].count() #Count of the 'Day' column values 
+df['Amount'].mean() #Mean of the 'Amount' column values
+df['Amount'].median() #Median of the 'Amount' column values  
+df.groupby('Day')['Amount'].mean()  #average sale of each Day
+df.groupby('Day')['Units Sold'].mean()  #average sale of each Day
+df.nlargest(3, 'Units Sold')    #top 3 rows with the highest 'Units Sold' values 
+df.nsmallest(5, 'Units Sold')   #top 5 rows with the lowest 'Units Sold' values 
+df[df['Coffee Type'] == 'Latte']    #show the data where 'Coffee Type' is 'Latte'
+df['Coffee Type'].unique()  #show the unique values in the 'Coffee Type' column   
+df.rename(columns={'Units Sold': 'Units Sold Per Day'}, inplace=False)  #rename the column 'Units Sold' to 'Units Sold Per Day' 
+df[df['Day'] == 'Sunday']['Units Sold'].sum()  #sum of 'Units Sold' on 'Sunday' 
+df[(df['Day'] == 'Sunday') & (df['Coffee Type'] == 'Latte')]['Units Sold'].sum()  #sum of 'Units Sold' on 'Sunday' for 'Latte'  
+df[(df['Day'] == 'Sunday') & (df['Coffee Type'] == 'Latte')]['Units Sold'].sum()  #sum of 'Amount' on 'Sunday' for 'Latte'
+df  #Show all Data into the Dataframe
+df.loc[6]   #show the 6th row      
+df.loc[6, ['Coffee Type', 'Units Sold']]    #show the 6th row of the columns 'Coffee Type' and 'Units Sold'
+pd.isnull(df).sum() #show the missing values in the data    
+df.sample(2) #show the random 2 rows    
+df.info()   #show the information of the data
+print(df.dtypes)    #show the data types of the columns 
+print(df.size)  #show the total number of elements in the data
+print(df.ndim)  #show the number of dimensions of the data  
+print(df['Department'].unique())    #show the unique values in the 'Department' column  
+print(df['Department'].nunique())   #show the number of unique values in the 'Department' column    
+print(df.isnull())  #show the missing values in the data    
+print(df.isna())    #show the missing values in the data    
+df_filled = df.fillna(0)    #fill the missing values with 0 
+print(df_filled)    #show the data after filling the missing values with 0  
+print(df['Age'].clip(lower=30)) #clip the 'Age' column values to a minimum of 30    
+
+# 17. columns: Get column names.
+print(df.columns)
+
+# 18. sort_values(): Sort the DataFrame.
+print(df.sort_values(by='Age'))
+
+# 19. value_counts(): Count occurrences of values.
+print(df['Department'].value_counts())
+
+# 20. nlargest(): Get the largest n values.
+print(df.nlargest(2, 'Salary'))
+
+# 21. nsmallest(): Get the smallest n values.
+print(df.nsmallest(2, 'Salary'))
+
+# 22. copy(): Create a copy of the DataFrame.
+df_copy = df.copy()
+
+# 23. loc[]: Access a group of rows and columns by labels.
+print(df.loc[0:2, ['Name', 'Age']])
+
+# 24. iloc[]: Access rows and columns by integer location.
+print(df.iloc[0:2, 0:2])
+
+# 25. rename(): Rename columns.
+df_renamed = df.rename(columns={'Age': 'Years'})
+print(df_renamed)
+
+# 26. where(): Replace values based on condition.
+print(df.where(df > 30, 0))
+
+# 27. drop(): Drop specified labels from rows or columns.
+df_dropped = df.drop(columns=['Department'])
+print(df_dropped)
+
+# 28. groupby(): Group data and perform aggregate operations.
+print(df.groupby('Department').mean())
+
+# 29. corr(): Compute pairwise correlation of columns.
+print(df.corr())
+
+# 30. query(): Query the DataFrame.
+print(df.query('Salary > 60000'))
+
+# 31. insert(): Insert a column into the DataFrame.
+df.insert(2, 'Experience', [2, 5, 10, 12, 7])
+print(df)
+
+# 32. sum(): Sum of values.
+print(df['Salary'].sum())
+
+# 33. mean(): Mean of values.
+print(df['Age'].mean())
+
+# 34. median(): Median of values.
+print(df['Age'].median())
+
+# 35. std(): Standard deviation of values.
+print(df['Age'].std())
+
+# 36. apply(): Apply a function along an axis of the DataFrame.
+print(df['Age'].apply(lambda x: x * 2))
+
+# 37. merge(): Merge DataFrames.
+df_other = pd.DataFrame({'Department': ['HR', 'IT'], 'Budget': [100000, 150000]})
+print(pd.merge(df, df_other, on='Department', how='left'))
+
+# 38. astype(): Cast a pandas object to a specified data type.
+df['Age'] = df['Age'].astype(float)
+print(df.dtypes)
+
+# 39. set_index(): Set the DataFrame index using existing columns.
+df_indexed = df.set_index('Name')
+print(df_indexed)
+
+# 40. reset_index(): Reset the index of the DataFrame.
+print(df_indexed.reset_index())
+
+# 41. at[]: Access a single value for a row/column label pair.
+print(df.at[1, 'Name'])
+
+# 42. iterrows(): Iterate over DataFrame rows as (index, Series) pairs.
+for index, row in df.iterrows():
+    print(index, row)
+
+# 43. iteritems(): Iterate over DataFrame columns as (column name, Series) pairs.
+for col_name, col_data in df.iteritems():
+    print(col_name, col_data)
+
+# 44. to_datetime(): Convert argument to datetime.
+df['Date'] = pd.to_datetime(['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'])
+print(df)
+
+# 45. to_numeric(): Convert argument to a numeric type.
+df['Age'] = pd.to_numeric(df['Age'], errors='coerce')
+print(df)
+
+# 46. to_string(): Render DataFrame to a console-friendly tabular output.
+print(df.to_string())
+
+# 47. concat(): Concatenate DataFrames.
+df_concat = pd.concat([df, df])
+print(df_concat)
+
+# 48. cov(): Compute pairwise covariance of columns.
+print(df.cov())
+
+# 49. duplicated(): Return boolean Series denoting duplicate rows.
+print(df.duplicated())
+
+# 50. drop_duplicates(): Remove duplicate rows.
+df_deduped = df.drop_duplicates()   # Drop duplicate rows   
+print(df_deduped)                    # Print DataFrame after dropping duplicates
+
+# 51. dropna(): Remove missing values.
+df_no_na = df.dropna()
+print(df_no_na)
+
+# 52. diff(): Calculate the difference between DataFrame elements along a given axis.
+print(df['Salary'].diff())
+
+# 53. rank(): Compute numerical data ranks (1 through n) along axis.
+print(df['Salary'].rank())
+
+# 54. mask(): Replace values where the condition is True.
+print(df['Salary'].mask(df['Salary'] < 70000, 0))
+
+# 55. resample(): Resample time-series data.
+df.set_index('Date', inplace=True)
+print(df.resample('2D').sum())
+
+# 56. transform(): Call function on self producing a DataFrame with the same axis shape as self.
+print(df['Salary'].transform(lambda x: x / 1000))
+
+# 57. replace(): Replace values given in to_replace with value.
+print(df.replace({'HR': 'Human Resources'}))
+
+# 58. to_csv(): Write DataFrame to a CSV file.
+# df.to_csv('output.csv')
+
+# 59. to_excel(): Write DataFrame to an Excel file.
+# df.to_excel('output.xlsx')
+
+# 60. to_sql(): Write DataFrame to a SQL database.
+# Assuming you have a SQLAlchemy engine
+# df.to_sql('table_name', con=engine)
+
+# 61. plot(): Plot data.
+df.reset_index(inplace=True)  # Reset index for plotting
+df.plot(x='Name', y='Salary', kind='bar')
+
+
+#rename column
+df.rename(columns= {'Occupation':'Job Details'})
+
+# change data type of Amount 
+df['Amount'] = df['Amount'].astype('int')
+
+#Changed Showing Output
+df['Amount'].dtypes
+
+Accessing different parts of the DataFrame allows for flexible data manipulation and inspection.
+
+# Access columns
+df.columns
+
+# Access index
+df.index.tolist()
+
+# General info about the DataFrame
+df.info()
+
+# Statistical summary
+df.describe()
+
+# Number of unique values in each column
+df.nunique()
+
+# Access unique values in a column
+df['A'].unique()
+
+# Shape and size of DataFrame
+df.shape
+df.size 
+
+
+
+
+Filtering Data
+Filtering data is essential for extracting relevant subsets based on conditions.
+
+# Filter rows based on conditions
+bios.loc[bios["height_cm"] > 215]
+
+# Multiple conditions
+bios[(bios['height_cm'] > 215) & (bios['born_country']=='USA')]
+
+# Filter by string conditions
+bios[bios['name'].str.contains("keith", case=False)]
+
+# Regex filters
+bios[bios['name'].str.contains(r'^[AEIOUaeiou]', na=False)]
+
+
+
+
+
+
+
+
+Adding/Removing Columns
+Adding and removing columns is important for maintaining and analyzing relevant data.
+
+# Add a new column
+coffee['price'] = 4.99
+
+# Conditional column
+coffee['new_price'] = np.where(coffee['Coffee Type']=='Espresso', 3.99, 5.99)
+
+# Remove a column
+coffee.drop(columns=['price'], inplace=True)
+
+# Rename columns
+coffee.rename(columns={'new_price': 'price'}, inplace=True)
+
+# Create new columns from existing ones
+coffee['revenue'] = coffee['Units Sold'] * coffee['price']
+
+
+
+
+
+
+
+
+
+Merging and Concatenating Data
+Merging and concatenating DataFrames is useful for combining different datasets for comprehensive analysis.
+
+# Merge DataFrames
+nocs = pd.read_csv('./data/noc_regions.csv')
+bios_new = pd.merge(bios, nocs, left_on='born_country', right_on='NOC', how='left')
+
+# Concatenate DataFrames
+usa = bios[bios['born_country']=='USA'].copy()
+gbr = bios[bios['born_country']=='GBR'].copy()
+new_df = pd.concat([usa, gbr])
+
+
+
+
+
+
+Handling Null Values
+Handling null values is essential to ensure the integrity of data analysis.
+
+# Fill NaNs with a specific value
+coffee['Units Sold'].fillna(0, inplace=True)
+
+# Interpolate missing values
+coffee['Units Sold'].interpolate(inplace=True)
+
+# Drop rows with NaNs
+coffee.dropna(subset=['Units Sold'], inplace=True)
+Aggregating Data
+Aggregation functions like value counts and group by help in summarizing data efficiently.
+
+# Value counts
+bios['born_city'].value_counts()
+
+# Group by and aggregation
+coffee.groupby(['Coffee Type'])['Units Sold'].sum()
+coffee.groupby(['Coffee Type'])['Units Sold'].mean()
+
+# Pivot table
+pivot = coffee.pivot(columns='Coffee Type', index='Day', values='revenue')
+Advanced Functionality
+Advanced functionalities such as rolling calculations, rankings, and shifts can provide deeper insights.
+
+# Cumulative sum
+coffee['cumsum'] = coffee['Units Sold'].cumsum()
+
+# Rolling window
+latte = coffee[coffee['Coffee Type']=="Latte"].copy()
+latte['3day'] = latte['Units Sold'].rolling(3).sum()
+
+# Rank
+bios['height_rank'] = bios['height_cm'].rank(ascending=False)
+
+# Shift
+coffee['yesterday_revenue'] = coffee['revenue'].shift(1)
+New Functionality
+The PyArrow backend offers optimized performance for certain operations, particularly string operations.
+
+# PyArrow backend
+results_arrow = pd.read_csv('./data/results.csv', engine='pyarrow', dtype_backend='pyarrow')
+results_arrow.info()
+
+
+
+
+
+#error !!
+
+NameError: name 'pd' is not defined #pandas library has not been imported
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
